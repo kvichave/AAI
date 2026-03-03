@@ -5,7 +5,7 @@ from langchain_openai import ChatOpenAI
 import asyncio
 
 from dotenv import load_dotenv
-
+import json
 load_dotenv()
 import os
 
@@ -20,18 +20,7 @@ llm = ChatOpenAI(
 
 async def main():
     mcp_client = MultiServerMCPClient(
-        {
-            "math":{
-                "command":"python",
-                "args":["mathserver.py"],
-                "transport":"stdio"
-            },
-            "weather":{
-               "url":"http://127.0.0.1:8000/mcp",
-            "transport": "streamable-http"
-            },
-           
-        }
+        json.load(open("tools.json"))
     )
     
     
@@ -43,8 +32,8 @@ async def main():
         print("Failed to load MCP tools:", e)
         return
     agent=create_agent(llm,tools)
-    weather_response=await agent.ainvoke({"messages":[{"role":"user","content":"What is the weather like in New York?"}]})
-    print(weather_response)
+    weather_response=await agent.ainvoke({"messages":[{"role":"user","content":"What is the latest news, websearch it"}]})
+    print(weather_response["messages"][-1].content)
 
 
 asyncio.run(main())
