@@ -12,7 +12,6 @@ async def get_weather(city: str) -> str:
     """Get weather of a city"""
     return f"Weather in {city} is sunny"
 
-
 @mcp.tool()
 async def search_web(query:str)->str:
     """Search the web for information."""
