@@ -10,6 +10,12 @@ from langgraph.graph.message import add_messages
 from dotenv import load_dotenv
 load_dotenv()
 
+from langgraph.checkpoint.memory import MemorySaver
+
+memory = MemorySaver()
+
+
+
 class State(TypedDict):
     messages: Annotated[list, add_messages]
 
@@ -82,8 +88,8 @@ builder.add_conditional_edges(
 
 builder.add_edge("tools", "chatbot")
 
-graph = builder.compile()
-
+graph = builder.compile(checkpointer=memory)
+config={"configurable":{"thread_id":"1"}}
 
 
 while True:
@@ -91,8 +97,15 @@ while True:
     query = input("User: ")
 
     result = graph.invoke(
-        {"messages": [HumanMessage(content=query)]}
+        {"messages": [HumanMessage(content=query)]},
+        config=config
     )
 
     print(result["messages"][-1].content)
     print(result)
+
+
+
+
+
+
