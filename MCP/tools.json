@@ -1,17 +1,34 @@
 {
-    "math": {
-        "command": "python",
+    "sqlite": {
+        "command": "docker",
         "args": [
-            "mathserver.py"
+            "run",
+            "-i",
+            "--rm",
+            "-v",
+            "C:/Users/Kunal/Desktop/AAI:/data",
+            "-e",
+            "DATABASE_URL=sqlite+aiosqlite:////data/test.db",
+            "souhardyak/mcp-db-server"
         ],
         "transport": "stdio"
     },
-    "weather": {
-        "url": "http://127.0.0.1:8000/mcp",
-        "transport": "streamable-http"
-    },
-    "Search_tool": {
-        "url": "http://127.0.0.1:8000/mcp",
-        "transport": "streamable-http"
+    "grafana": {
+        "command": "docker",
+        "args": [
+            "run",
+            "-i",
+            "--rm",
+            "-e",
+            "GRAFANA_URL",
+            "-e",
+            "GRAFANA_API_KEY",
+            "mcp/grafana",
+            "--transport=stdio"
+        ],
+        "transport": "stdio",
+        "env": {
+            "GRAFANA_URL": "http://host.docker.internal:3000",
+        }
     }
 }
