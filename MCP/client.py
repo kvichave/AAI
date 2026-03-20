@@ -25,9 +25,15 @@ load_dotenv()
 # )
 
 llm = ChatOpenAI(
+<<<<<<< HEAD
     model="stepfun/step-3.5-flash:free",
     base_url="https://openrouter.ai/api/v1", # Added /v1 for standard OpenAI compatibility
     api_key=os.getenv("OPENROUTER_API"),                    # Placeholder to prevent auth errors
+=======
+    model="qwen2.5:3b",
+    base_url="http://localhost:11434/v1", # Added /v1 for standard OpenAI compatibility
+    api_key="ollama",                    # Placeholder to prevent auth errors
+>>>>>>> 2e3265b9cc57002ce7b7fff43fad9fe0f8cc1ec6
     temperature=0,
    )
 
@@ -57,7 +63,12 @@ async def main():
     def chatbot(state: State):
         # We can add a system message here to guide the agent
         system_prompt = SystemMessage(
+<<<<<<< HEAD
             content=("""You are an expert Grafana dashboard engineer and data analyst.
+=======
+            content=(
+           """You are an expert Grafana dashboard engineer and data analyst.
+>>>>>>> 2e3265b9cc57002ce7b7fff43fad9fe0f8cc1ec6
  
 Your job is to:
 1. Inspect a SQLite database using the sqlite MCP tools to understand its schema and data.
