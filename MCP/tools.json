@@ -22,7 +22,6 @@
             "-e",
             "GRAFANA_URL",
             "-e",
-            "GRAFANA_API_KEY",
             "mcp/grafana",
             "--transport=stdio"
         ],
