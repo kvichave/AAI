@@ -84,3 +84,23 @@ You are calling a Go-based MCP server. The 'dashboard' parameter must be a raw J
 - `update_dashboard`: Update a dashboard.
 Always think step-by-step before calling tools.
 """
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
