@@ -10,3 +10,4 @@ wheels/
 .venv
 .env
 venv
+Database_Tool/mcp-db-server
