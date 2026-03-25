@@ -31,4 +31,5 @@ def div(a:int,b:int)->float:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    mcp.run(        transport="streamable-http"
+)

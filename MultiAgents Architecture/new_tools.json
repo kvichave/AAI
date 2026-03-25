@@ -6,57 +6,17 @@
         ],
         "transport": "stdio"
     },
-    "research": {
-        "command": "python",
-        "args": [
-            "researchmcp.py"
-        ],
-        "transport": "stdio"
-<<<<<<< HEAD
-    },
-    "sqlite": {
-        "command": "docker",
-        "args": [
-            "run",
-            "-i",
-            "--rm",
-            "-v",
-            "C:/Users/DNFH3173/Desktop/AAI:/data",
-            "-e",
-            "DATABASE_URL=sqlite+aiosqlite:////data/test.db",
-            "souhardyak/mcp-db-server"
-        ],
-        "transport": "stdio"
-    },
-    "grafana": {
-        "command": "docker",
-        "args": [
-            "run",
-            "-i",
-            "--rm",
-            "-e",
-            "GRAFANA_URL",
-            "-e",
-            "mcp/grafana",
-            "--transport=stdio"
-        ],
-        "transport": "stdio",
-        "env": {
-            "GRAFANA_URL": "http://host.docker.internal:3000"
-        }
+    "weather": {
+        "url": "http://127.0.0.1:8000/mcp",
+        "transport": "streamable-http"
     },
     "github": {
-        "command": "docker",
-        "args": [
-            "run",
-            "-i",
-            "--rm",
-            "-e",
-            "ghcr.io/github/github-mcp-server"
-        ],
-        "env": {},
-        "transport": "stdio"
-=======
->>>>>>> 6c28cfe95a340b7214bca48938298dd50b3e3273
+        "url": "https://api.githubcopilot.com/mcp/",
+        "headers": {},
+        "transport": "streamable-http"
+    },
+    "grafana": {
+        "url": "http://localhost:8900/mcp",
+        "transport": "streamable-http"
     }
 }

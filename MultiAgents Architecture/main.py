@@ -15,16 +15,21 @@ async def main():
         "You are a math expert. Always use one tool at a time.",
         ["math"]
     )
-    web_agent = Agent(
-        "Web_Expert",
-        "You are a web expert. Always use one tool at a time.",
-        ["research"]
-    )
-    database_expert=Agent(
-        "Database_Expert",
-        "You are a database expert. Always use one tool at a time.",
-        ["sqlite"]
-    )
+    # web_agent = Agent(
+    #     "Web_Expert",
+    #     "You are a web expert. Always use one tool at a time.",
+    #     ["research"]
+    # )
+    weather_agent = Agent(
+        "Weather_Expert",
+        "You are a weather expert. Always use one tool at a time.",
+        ["weather"]
+    )       
+    # database_expert=Agent(
+    #     "Database_Expert",
+    #     "You are a database expert. Always use one tool at a time.",
+    #     ["sqlite"]
+    # )
     grafana_expert=Agent(
         "Grafana_Expert",
         "You are a grafana expert. Always use one tool at a time.",
@@ -38,23 +43,23 @@ async def main():
     
     # Setup agents (load tools, etc.)
     await math_agent.setup()
-    await web_agent.setup()
-    await database_expert.setup()
+    await weather_agent.setup()
+    # await database_expert.setup()
     await grafana_expert.setup()
     await github_expert.setup()
-    subagents=[math_agent,web_agent,database_expert,grafana_expert,github_expert]
+    # print(weather_agent._tools_cache)
+    subagents=[math_agent,weather_agent,github_expert,grafana_expert]
     
     # Create supervisor workflow
     workflow = create_supervisor(
         subagents,
         model=llm,
         prompt=(
-            "You are a team supervisor managing a research expert and a math expert,database expert,grafana expert,github expert. "
-            "For current events, use web_agent. "
+            "You are a main agent and you have a team of subagents, a math expert and a weather expert and a github expert and a grafana expert. "
             "For math problems, use math_agent."
-            "For database problems, use database_expert."
-            "For grafana problems, use grafana_expert."
+            "For weather problems, use weather_agent."
             "For github problems, use github_expert."
+            "For grafana problems, use grafana_expert."
         )
     )
 

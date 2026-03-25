@@ -10,7 +10,7 @@ mcp = FastMCP("Weather")
 @mcp.tool()
 async def get_weather(city: str) -> str:
     """Get weather of a city"""
-    return f"Weather in {city} is sunny"
+    return f"Weather in {city} is bvidfbvibdfivbijdfb"
 
 @mcp.tool()
 async def search_web(query:str)->str:
