@@ -10,13 +10,12 @@
         "url": "http://127.0.0.1:8000/mcp",
         "transport": "streamable-http"
     },
-    "github": {
-        "url": "https://api.githubcopilot.com/mcp/",
-        "headers": {},
-        "transport": "streamable-http"
-    },
     "grafana": {
         "url": "http://localhost:8900/mcp",
+        "transport": "streamable-http"
+    },
+    "sqlite": {
+        "url": "http://127.0.0.1:8899/mcp",
         "transport": "streamable-http"
     }
 }

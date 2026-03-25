@@ -35,34 +35,46 @@ async def main():
         "You are a grafana expert. Always use one tool at a time.",
         ["grafana"]
     )
-    github_expert=Agent(
-        "Github_Expert",
-        "You are a github expert. Always use one tool at a time.",
-        ["github"]
+    # github_expert=Agent(
+    #     "Github_Expert",
+    #     "You are a github expert. Always use one tool at a time.",
+    #     ["github"]
+    # )
+    database_expert=Agent(
+        "Database_Expert",
+        "You are a database expert. Always use one tool at a time.",
+        ["sqlite"]
     )
     
     # Setup agents (load tools, etc.)
     await math_agent.setup()
     await weather_agent.setup()
-    # await database_expert.setup()
+    await database_expert.setup()
     await grafana_expert.setup()
-    await github_expert.setup()
+    # await github_expert.setup()
     # print(weather_agent._tools_cache)
-    subagents=[math_agent,weather_agent,github_expert,grafana_expert]
+
+    print("\n🧠 Cached Tools:")
+
+    for key, tools in database_expert._tools_cache.items():
+        print(f"\n🔑 Cache Key: {key}")
+        for tool in tools:
+            print(f" - {getattr(tool, 'name', 'unknown')}")
+    subagents=[math_agent,weather_agent,grafana_expert,database_expert]
     
     # Create supervisor workflow
     workflow = create_supervisor(
         subagents,
         model=llm,
         prompt=(
-            "You are a main agent and you have a team of subagents, a math expert and a weather expert and a github expert and a grafana expert. "
+            "You are a main agent and you have a team of subagents, a math expert and a weather expert  and a grafana expert and a database expert. "
             "For math problems, use math_agent."
             "For weather problems, use weather_agent."
-            "For github problems, use github_expert."
             "For grafana problems, use grafana_expert."
-        )
-    )
-
+            "For database problems, use database_expert."  
+        )   
+    )  
+ 
     # Compile the workflow into an executable app
     memory = MemorySaver()
     memory.delete_thread("1")

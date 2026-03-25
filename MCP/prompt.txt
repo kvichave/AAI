@@ -31,6 +31,10 @@ You are calling a Go-based MCP server. The 'dashboard' parameter must be a raw J
 - `get_connection_examples`: Get example connection strings for different database types (SQLite, PostgreSQL, MySQL).
 - `get_current_database_info`: Get information about the currently connected database including type, version, and connection status.
 
+
+
+
+
 # Grafana Tools
 - `add_activity_to_incident`: Add activity to an incident.
 - `alerting_manage_routing`: Manage alerting routing.
@@ -83,28 +87,4 @@ You are calling a Go-based MCP server. The 'dashboard' parameter must be a raw J
 - `update_annotation`: Update an annotation.
 - `update_dashboard`: Update a dashboard.
 Always think step-by-step before calling tools.
-<<<<<<< HEAD
 """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
-"""
->>>>>>> 6c28cfe95a340b7214bca48938298dd50b3e3273
