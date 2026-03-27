@@ -40,13 +40,15 @@ class Agent:
         print(f"🔄 Loading tools for {key}...")
 
         try:
+            print("all_tools")
+
             # ✅ IMPORTANT: your MCP version likely does NOT support server_name
             all_tools = await self.mcp_client.get_tools()
-
             # ✅ Filter tools manually (instead of server_name)
             filtered_tools = []
             for tool in all_tools:
                 name = getattr(tool, "name", "").lower()
+                print("name",name)
 
                 if any(t in name for t in self.tool_names):
                     filtered_tools.append(tool)
@@ -93,6 +95,7 @@ class Agent:
 
 
         start_time = time.perf_counter()
+        print("giving to agent")
         result = await self.agent.ainvoke(query, config)
         end_time = time.perf_counter()
         print(f"Agent {self.name} took {end_time - start_time} seconds to complete")
