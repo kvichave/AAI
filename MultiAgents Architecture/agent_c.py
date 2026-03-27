@@ -40,7 +40,6 @@ class Agent:
         print(f"🔄 Loading tools for {key}...")
 
         try:
-            print("all_tools")
 
             # ✅ IMPORTANT: your MCP version likely does NOT support server_name
             all_tools = await self.mcp_client.get_tools()
@@ -48,10 +47,11 @@ class Agent:
             filtered_tools = []
             for tool in all_tools:
                 name = getattr(tool, "name", "").lower()
-                print("name",name)
+                # print("tool",tool)
 
                 if any(t in name for t in self.tool_names):
                     filtered_tools.append(tool)
+                    print("tool",tool)
 
             # fallback: if nothing matched, use all tools
             if not filtered_tools:

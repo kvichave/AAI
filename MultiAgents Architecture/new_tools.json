@@ -2,5 +2,9 @@
     "SQLite": {
         "url": "http://127.0.0.1:8004/mcp",
         "transport": "streamable-http"
+    },
+    "Grafana": {
+        "url": "http://localhost:8900/mcp",
+        "transport": "streamable-http"
     }
 }

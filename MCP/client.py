@@ -25,11 +25,11 @@ load_dotenv()
 # )
 
 llm = ChatOpenAI(
-    model="qwen2.5:3b",
-    base_url="http://localhost:11434/v1", # Added /v1 for standard OpenAI compatibility
-    api_key="ollama",                    # Placeholder to prevent auth errors
+    model="meta-llama/llama-4-scout-17b-16e-instruct",
+    base_url="https://api.groq.com/openai/v1",
+    api_key=os.getenv("GROQ_API_KEY"),
     temperature=0,
-   )
+)
 
 
 # 3. State Definition
