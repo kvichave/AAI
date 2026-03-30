@@ -11,9 +11,9 @@ load_dotenv()
 
 # Initialize the LLM
 llm = ChatOpenAI(
-    model="nvidia/nemotron-3-nano-30b-a3b:free",
-    base_url="https://openrouter.ai/api/v1",
-    api_key=os.getenv("OPENROUTER_API"),
+    model="Mistral-Large-3",
+    base_url="https://agent-factory.openai.azure.com/openai/v1/",
+    api_key=os.getenv("AZURE_MODEL"),
     temperature=0,
 )
 
