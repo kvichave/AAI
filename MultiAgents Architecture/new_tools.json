@@ -6,5 +6,9 @@
     "Grafana": {
         "url": "http://localhost:8900/mcp",
         "transport": "streamable-http"
+    },
+    "github": {
+        "url": "http://localhost:3033/mcp",
+        "transport": "streamable-http"
     }
 }

@@ -11,9 +11,9 @@ load_dotenv()
 
 # Initialize the LLM
 llm = ChatOpenAI(
-    model="meta-llama/llama-4-scout-17b-16e-instruct",
-    base_url="https://api.groq.com/openai/v1",
-    api_key=os.getenv("GROQ_API_KEY"),
+    model="nvidia/nemotron-3-nano-30b-a3b:free",
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.getenv("OPENROUTER_API"),
     temperature=0,
 )
 
