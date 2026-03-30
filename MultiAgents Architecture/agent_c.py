@@ -11,7 +11,7 @@ load_dotenv()
 
 # Initialize the LLM
 llm = ChatOpenAI(
-    model="Mistral-Large-3",
+    model="DeepSeek-V3.2",
     base_url="https://agent-factory.openai.azure.com/openai/v1/",
     api_key=os.getenv("AZURE_MODEL"),
     temperature=0,
