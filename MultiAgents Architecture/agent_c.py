@@ -8,8 +8,24 @@ import os
 from dotenv import load_dotenv
 import time
 load_dotenv()
-
 # Initialize the LLM
+from langchain_google_vertexai.model_garden import ChatAnthropicVertex
+
+# 1. Setup Configuration (Matching your Postman variables)
+PROJECT_ID = "sbx-31371-79b51c7781a2"
+LOCATION_ID = "europe-west1"
+# Use the exact model ID that worked in your Postman URL
+MODEL_ID = "claude-opus-4-6"
+
+# 2. Initialize the Model
+# Note: This class automatically handles the /publishers/anthropic/ pathing for you.
+# llm = ChatAnthropicVertex(
+#     model_name=MODEL_ID,
+#     project=PROJECT_ID,
+#     location=LOCATION_ID,
+#     streaming=False, # Matches your "stream": true in Postman
+#     temperature=1
+# )
 llm = ChatOpenAI(
     model="DeepSeek-V3.2",
     base_url="https://agent-factory.openai.azure.com/openai/v1/",
@@ -88,14 +104,16 @@ class Agent:
 
         return self.agent
 
-    async def ainvoke(self, query: str, config=None):
+    async def ainvoke(self, query:Dict, config=None):
         """Invoke the agent"""
         if self.agent is None:
             await self.setup()
 
 
         start_time = time.perf_counter()
-        print("giving to agent")
+        print("query: ",query["messages"][-1].content)
+
+        print("giving to agent: ",self.name)
         result = await self.agent.ainvoke(query, config)
         end_time = time.perf_counter()
         print(f"Agent {self.name} took {end_time - start_time} seconds to complete")
