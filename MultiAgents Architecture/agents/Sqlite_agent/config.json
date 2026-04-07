@@ -1,0 +1,7 @@
+{
+    "name": "Database_Expert",
+    "tools": [
+        "SQLite"
+    ],
+    "description": "Used for database related tasks"
+}

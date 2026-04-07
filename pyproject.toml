@@ -1,0 +1,11 @@
+[project]
+name = "aai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "langchain>=1.2.10",
+    "langgraph>=1.0.9",
+    "langsmith>=0.7.6",
+]

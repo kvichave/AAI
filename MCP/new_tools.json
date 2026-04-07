@@ -1,0 +1,16 @@
+{
+    "math": {
+        "command": "python",
+        "args": [
+            "mathserver.py"
+        ],
+        "transport": "stdio"
+    },
+    "research": {
+        "command": "python",
+        "args": [
+            "researchmcp.py"
+        ],
+        "transport": "stdio"
+    }
+}
