@@ -14,11 +14,11 @@ _db_path = None
 # =========================
 # 🔹 HELPERS
 # =========================
-def resolve_input(primary: Optional[str], field_name: str):
+def resolve_input(primary: Optional[str], fallback: Optional[str], field_name: str):
     """
     Resolves input from either primary param or fallback 'input'.
     """
-    value = primary if primary is not None else "fallback"
+    value = primary if primary is not None else fallback
     if not value:
         raise ValueError(f"Missing required parameter: {field_name}")
     return value
@@ -34,13 +34,14 @@ def ensure_connection():
 @mcp.tool
 def connect_to_database(
     database: Optional[str] = None,
-    
+    input: Optional[str] = None
 ) -> str:
     """
     Connect to a SQLite database file.
 
     Args:
         database: Path to SQLite DB file
+        input: fallback
 
     Returns:
         JSON string with connection status
@@ -48,7 +49,7 @@ def connect_to_database(
     global _db_conn, _db_path
 
     try:
-        db_path = resolve_input(database, "database")
+        db_path = resolve_input(database, input, "database")
 
         _db_conn = sqlite3.connect(db_path, check_same_thread=False)
         _db_path = db_path
