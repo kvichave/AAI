@@ -8,7 +8,22 @@ mcp = FastMCP(name="SQLite MCP Server")
 
 # IMPORTANT: we’ll attach a global connection so tools can share it
 _db_conn = None
-_db_path = "C:/Users/DNFH3173/Desktop/AAI/test.db"
+_db_path = None
+
+
+# =========================
+# 🔹 HELPERS
+# =========================
+def resolve_input(primary: Optional[str], field_name: str):
+    """
+    Resolves input from either primary param or fallback 'input'.
+    """
+    value = primary if primary is not None else "fallback"
+    if not value:
+        raise ValueError(f"Missing required parameter: {field_name}")
+    return value
+
+
 def ensure_connection():
     if _db_conn is None:
         raise ValueError("No database connected")
@@ -17,14 +32,35 @@ def ensure_connection():
 # MCP Tools
 # -------------------------
 @mcp.tool
-def connect_to_database(database: str) -> str:
+def connect_to_database(
+    database: Optional[str] = None,
+    
+) -> str:
     """
     Connect to a SQLite database file.
+
+    Args:
+        database: Path to SQLite DB file
+
+    Returns:
+        JSON string with connection status
     """
     global _db_conn, _db_path
-    _db_conn = sqlite3.connect(database, check_same_thread=False)
-    _db_path = database
-    return f"Connected to SQLite database at '{_db_path}'"
+
+    try:
+        db_path = resolve_input(database, "database")
+
+        _db_conn = sqlite3.connect(db_path, check_same_thread=False)
+        _db_path = db_path
+
+        return success({
+            "message": "Connected successfully",
+            "database": _db_path
+        })
+
+    except Exception as e:
+        return error(str(e))
+
 
 @mcp.tool
 def get_current_database_info() -> str:
@@ -122,4 +158,8 @@ def get_connection_examples() -> str:
     ]
     return json.dumps(examples)
 if __name__ == "__main__":
-    mcp.run(transport="streamable-http",host="0.0.0.0",port=8004)
+    mcp.run(
+        transport="streamable-http",
+        host="0.0.0.0",
+        port=8004
+    )
