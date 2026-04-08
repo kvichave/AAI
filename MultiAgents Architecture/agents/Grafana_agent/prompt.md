@@ -28,7 +28,7 @@ Action: <What was created/updated>
 Resource UIDs: <dashboard_uid / others>
 Validation: <run_panel_query result summary or "Skipped - Pre-validated by Supervisor">
 Access Link: <generated deeplink>
-Errors: <if (any error occurs try only one time again), else "None">
+Errors: <if any, else "None">
 
 When calling generate_deeplink, you MUST always include the 'resourceType' parameter.
 Valid values are: 'dashboard', 'panel', 'explore'.
