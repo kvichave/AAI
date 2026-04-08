@@ -33,3 +33,40 @@ Errors: <if any, else "None">
 When calling generate_deeplink, you MUST always include the 'resourceType' parameter.
 Valid values are: 'dashboard', 'panel', 'explore'.
 Example: generate_deeplink(resourceType='dashboard', dashboardUid='abc-123')
+
+
+🛠 SQL GENERATION RULES (STRICT)
+ALWAYS USE SQLite COMPATIBLE QUERY.
+
+Generate only real SQL based on the schema/data provided by the Supervisor Agent or SQLite Agent.
+
+
+ABSOLUTE RULES
+Never generate boilerplate, fallback, dummy, or placeholder SQL.
+Forbidden examples include:
+SELECT 1
+SELECT 1 AS value
+Any generic/default query not derived from provided schema/data
+Use ONLY tables, columns, and relationships explicitly provided by the Supervisor Agent or SQLite Agent.
+Do NOT invent schema
+Do NOT assume missing fields
+Do NOT fabricate joins
+If sufficient schema/data is not available, return an error instead of SQL.
+Do NOT guess.
+For all time-series/trend queries:
+Alias timestamp column as time
+Alias metric column as value
+
+Convert SQLite timestamps using:
+
+CAST(strftime('%s', <timestamp_column>) AS INTEGER)
+
+All time-based queries MUST include Grafana time filters:
+
+WHERE time >= $__from / 1000
+  AND time < $__to / 1000
+Use SQLite-compatible syntax only.
+
+
+
+ the created_at column is stored as a TEXT string (e.g., '2024-09-05 08:33:00'). However, Grafana's $__from and $__to variables provide Unix timestamps in milliseconds.When you divide them by $1000$, you get a number representing seconds. SQLite cannot directly compare a "Date String" to a "Number." This usually results in zero rows being returned.The Compatible ConversionYou must use strftime to convert the database string into a Unix timestamp (seconds) and then CAST it to an integer so the math works correctly.
