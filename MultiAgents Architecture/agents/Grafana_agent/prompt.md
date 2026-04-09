@@ -56,7 +56,8 @@ Do NOT guess.
 For all time-series/trend queries:
 Alias timestamp column as time
 Alias metric column as value
-
+Do NOT use SELECT aliases inside WHERE clauses.
+Repeat the full expression instead, because SQLite evaluates WHERE before SELECT.
 Convert SQLite timestamps using:
 
 CAST(strftime('%s', <timestamp_column>) AS INTEGER)
@@ -70,3 +71,10 @@ Use SQLite-compatible syntax only.
 
 
  the created_at column is stored as a TEXT string (e.g., '2024-09-05 08:33:00'). However, Grafana's $__from and $__to variables provide Unix timestamps in milliseconds.When you divide them by $1000$, you get a number representing seconds. SQLite cannot directly compare a "Date String" to a "Number." This usually results in zero rows being returned.The Compatible ConversionYou must use strftime to convert the database string into a Unix timestamp (seconds) and then CAST it to an integer so the math works correctly.
+
+
+
+in target include all the possible fields such as -
+("queryText","rawQueryText","rawSql") must include and etc
+
+dont use dashboardUid, use only uid as argument
