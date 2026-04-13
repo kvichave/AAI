@@ -1,0 +1,7 @@
+{
+    "name": "ServiceNow_Expert",
+    "tools": [
+        "ServiceNow"
+    ],
+    "description": "Used for ServiceNow related tasks"
+}

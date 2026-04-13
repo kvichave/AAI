@@ -10,5 +10,16 @@
     "github": {
         "url": "http://localhost:3033/mcp",
         "transport": "streamable-http"
+    },
+    "servicenow": {
+      "command": "python",
+      "args": [
+        "-m",
+        "mcp_server_servicenow.cli",
+        "--url", "https://dev315873.service-now.com/",
+        "--username", "admin",
+        "--password", "Uhvc*6bD8-TA"
+      ],
+      "transport": "stdio"
     }
 }
